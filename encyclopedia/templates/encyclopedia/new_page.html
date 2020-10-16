@@ -1,0 +1,31 @@
+{%extends "encyclopedia/layout.html"%}
+
+{%block title%}
+Create New Page
+{%endblock%}
+
+
+{%block body%}
+{% if message %}
+<div class="alert alert-warning" role="alert">{{ message }}</div>
+<h1>New Encyclopedia Entry</h1>
+{% endif %}
+    <hr>
+    <form action="{% url 'new_page' %}" method="post">
+        {% csrf_token %}
+        <span style="font-size: 1em; font-weight: bolder;">Title</span>
+        <br>
+        <small>Maximum 64 characters.</small>
+        <br>
+        <textarea name="title" rows="1" cols="64" maxlength="64" required style="height: 500px; width: 500px; ">{% if title %}{{ title }}{% endif %}</textarea>
+        <br><br>
+        <span style="font-size: 1em; font-weight: bolder;">Content</span>
+        <br>
+        <small>Must use MARKDOWN format.</small>
+        <br>
+        <textarea name="content" style="height: 500px; width: 500px;"
+            required>{% if content %}{{ content }}{% endif %}</textarea>
+        <br>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+{%endblock%}
